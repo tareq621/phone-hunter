@@ -13,25 +13,34 @@
 
 <body>
     <header>
-        <h2 class="text-center my-3 text-info">Phone Bazar</h2>
+        <h2 class="text-center my-3 text-success">Phone Bazar.com</h2>
     </header>
     <div class="input-group  w-50 mx-auto">
-        <input id="search-field" type="text" class="form-control border-2" placeholder="Search the phone you want"
+        <!-- input field  -->
+        <input id="search-field" type="text" class="form-control border-2 fw-bold" placeholder="Search here"
             aria-label="Recipient's username" aria-describedby="button-addon2">
+        <!-- search button  -->
         <button onclick="searchPhones()" class="btn btn-outline-secondary bg-primary text-light border-2 border-primary"
             type="button" id="button-addon2">Search</button>
     </div>
     <!-- error messages  -->
     <div>
-        <p id="error-message" class="text-danger text-center my-4 fs-4 d-none">Something went wrong please try again
+        <p id="error-message" class="text-danger text-center my-4 fs-4 d-none fw-bold">❌ Something went wrong please try
+            again
             later!!!!
         </p>
     </div>
     <!-- phone details  -->
-    <div id="phone-details" class="w-50 mx-auto">
+    <div class="w-100">
+        <div id="phone-details" class="w-50 mx-auto mt-3">
+
+        </div>
     </div>
     <!-- phone search result -->
     <div id="search-result" class="row row-cols-1 row-cols-md-3 g-5 mt-2 mx-5">
+        <div class="col-12 col-lg-4">
+
+        </div>
     </div>
 
 
