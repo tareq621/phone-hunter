@@ -11,16 +11,21 @@ const searchPhones = () => {
         .then(datas => displayPhones(datas.data))
         .catch(error => displayError(error))
 }
-const displayError = () => {
-    document.getElementById('error-message').style.display = 'block';
-
-}
 
 const displayPhones = phones => {
-    console.log(phones);
+    if (phones.length === 0) {
+        document.getElementById('error-message').classList.remove('d-none');
+    }
+    else {
+        document.getElementById('error-message').classList.add('d-none');
+    }
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
-    phones.forEach(phone => {
+    const phoneDetails = document.getElementById('phone-details');
+    phoneDetails.textContent = '';
+
+    const twentycard = phones.slice(0, 20);
+    twentycard.forEach(phone => {
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
@@ -32,9 +37,6 @@ const displayPhones = phones => {
         </div>
         `;
         searchResult.appendChild(div);
-        document.getElementById('error-message').style.display = 'none';
-
-
     });
 }
 
@@ -47,7 +49,7 @@ const loadPhoneDetail = phoneId => {
 }
 const displayLoadphoneDetail = phones => {
     const phoneDetails = document.getElementById('phone-details');
-    phoneDetails.textContent = '';
+    // phoneDetails.textContent = '';
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
@@ -55,7 +57,8 @@ const displayLoadphoneDetail = phones => {
     <img src="${phones.image}" class="card-img-top alt="...">
   <div class="card-body">
     <h6 class="card-title">${phones.name}</h6>
-    <p>Release Date: ${phones.releaseDate}</p>
+    <h6 class="card-title">${phones.brand}</h6>
+    <p>Release Date: ${phones.releaseDate || "Releas date not found"}</p>
     <h6 class = fw-bold>Main Features</h6>
 <table>
 <tr>
@@ -71,10 +74,15 @@ const displayLoadphoneDetail = phones => {
 <td>${phones.mainFeatures.memory}</td>
 </tr>
 <tr>
-<td class = fw-bold>storage:</td>
+<td class = fw-bold>Storage:</td>
 <td>${phones.mainFeatures.storage}</td>
 </tr>
 </table><br>
+<tr>
+<td class = fw-bold>Sensors:</td>
+<td>${phones.mainFeatures.sensors}</td>
+</tr>
+
 
 <h6 class = fw-bold>Other Features</h6>
 <table>
