@@ -1,37 +1,32 @@
 document.getElementById('error-message').style.display = 'none';
 const searchPhones = () => {
-    const searchField = document.getElementById('search-field');
-    const searchText = searchField.value;
-    searchField.value = '';
-    document.getElementById('error-message').style.display = 'block';
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
-    fetch(url)
-        .then(res => res.json())
-        .then(datas => displayPhones(datas.data))
+  const searchField = document.getElementById('search-field');
+  const searchText = searchField.value;
+  searchField.value = '';
+  document.getElementById('error-message').style.display = 'block';
+  const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
+  fetch(url)
+    .then(res => res.json())
+    .then(datas => displayPhones(datas.data))
 }
 const displayPhones = phones => {
-    // show error message 
-    if (phones.length === 0) {
-        document.getElementById('error-message').classList.remove('d-none');
-    }
-    else {
-        document.getElementById('error-message').classList.add('d-none');
-    }
-    // all phone search results
-    const searchResult = document.getElementById('search-result');
-    searchResult.textContent = '';
-    const phoneDetails = document.getElementById('phone-details');
-    phoneDetails.textContent = '';
-    const twentycard = phones.slice(0, 20);
-    if (twentycard === 0) {
-        const errror = 'Info will provide soon';
-        return errror;
-    }
-    else {
-        twentycard.forEach(phone => {
-            const div = document.createElement('div');
-            div.classList.add('col');
-            div.innerHTML = `
+  // show error message 
+  if (phones.length === 0) {
+    document.getElementById('error-message').classList.remove('d-none');
+  }
+  else {
+    document.getElementById('error-message').classList.add('d-none');
+  }
+  // all phone search results
+  const searchResult = document.getElementById('search-result');
+  searchResult.textContent = '';
+  const phoneDetails = document.getElementById('phone-details');
+  phoneDetails.textContent = '';
+  const twentycard = phones.slice(0, 20);
+  twentycard.forEach(phone => {
+    const div = document.createElement('div');
+    div.classList.add('col');
+    div.innerHTML = `
             <div class = shadow rounded mb-2>
                 <img width=250px src="${phone.image}" class ='ms-3 mt-3 mb-3'>
                     <h5 class = text-center>${phone.phone_name}</h5>
@@ -39,23 +34,23 @@ const displayPhones = phones => {
                 <button onclick="loadPhoneDetail('${phone.slug}')" type="button" class="btn btn-primary mx-auto w-25 ms-3 mb-2 fw-bold">More info</button>
             </div>
             `;
-            searchResult.appendChild(div);
-        });
-    }
+    searchResult.appendChild(div);
+  });
 }
 // phone search details
 const loadPhoneDetail = phoneId => {
-    const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
+  const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
 
-    fetch(url)
-        .then(res => res.json())
-        .then(datas => displayLoadphoneDetail(datas.data))
+  fetch(url)
+    .then(res => res.json())
+    .then(datas => displayLoadphoneDetail(datas.data))
 }
 const displayLoadphoneDetail = phones => {
-    const phoneDetails = document.getElementById('phone-details');
-    phoneDetails.textContent = '';
-    const div = document.createElement('div');
-    div.innerHTML = `
+
+  const phoneDetails = document.getElementById('phone-details');
+  phoneDetails.textContent = '';
+  const div = document.createElement('div');
+  div.innerHTML = `
     <div class="card mb-3 border-0" style="max-width: 500px max-height: 600px;">
     <div class="row g-0">
     <div class="col-md-4">
@@ -75,7 +70,11 @@ const displayLoadphoneDetail = phones => {
           </tr>
           <tr>
             <td class =fw-bold>Realease:</td>
-            <td>${phones.releaseDate}</td>
+            <td>${phones.releaseDate || 'no realease date found'}</td>
+          </tr>
+          <tr>
+            <td class =fw-bold>Chipset:</td>
+            <td>${phones.mainFeatures.chipSet}</td>
           </tr>
           <tr>
             <td class =fw-bold>Display Size:</td>
@@ -95,27 +94,27 @@ const displayLoadphoneDetail = phones => {
           </tr>
           <tr>
             <td class =fw-bold>Blutooth:</td>
-            <td>${phones.others.Bluetooth}</td>
+            <td>${phones?.others?.Bluetooth || 'data not found'}</td>
           </tr>
           <tr>
             <td class =fw-bold>GPS:</td>
-            <td>${phones.others.GPS}</td>
+            <td>${phones?.others?.GPS || 'data not found'}</td>
           </tr>
           <tr>
             <td class =fw-bold>NFC:</td>
-            <td>${phones.others.NFC}</td>
+            <td>${phones?.others?.NFC || 'data not found'}</td>
           </tr>
           <tr>
             <td class =fw-bold>Radio:</td>
-            <td>${phones.others.Radio}</td>
+            <td>${phones?.others?.Radio || 'data not found'}</td>
           </tr>
           <tr>
             <td class =fw-bold>USB:</td>
-            <td>${phones.others.USB}</td>
+            <td>${phones?.others?.USB || 'data not found'}</td>
           </tr>
           <tr>
             <td class =fw-bold>WLAN:</td>
-            <td>${phones.others.WLAN}</td>
+            <td>${phones?.others?.WLAN || 'data not found'}</td>
           </tr>
         </tbody>
       </table>
@@ -123,7 +122,6 @@ const displayLoadphoneDetail = phones => {
     </div>
 </div>
 </div>
-
     `;
-    phoneDetails.appendChild(div);
+  phoneDetails.appendChild(div);
 }
