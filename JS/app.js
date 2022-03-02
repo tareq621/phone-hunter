@@ -31,7 +31,7 @@ const displayPhones = phones => {
                 <img width=250px src="${phone.image}" class ='ms-3 mt-3 mb-3'>
                     <h5 class = text-center>${phone.phone_name}</h5>
                     <h5 class = text-center>Brand: ${phone.brand}</h5>
-                <button onclick="loadPhoneDetail('${phone.slug}')" type="button" class="btn btn-primary mx-auto w-25 ms-3 mb-2 fw-bold">More info</button>
+                <button onclick="loadPhoneDetail('${phone.slug}')" type="button" class="btn btn-primary mx-auto ms-3 mb-2 fw-bold">More info</button>
             </div>
             `;
     searchResult.appendChild(div);
